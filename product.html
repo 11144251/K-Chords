@@ -28,6 +28,21 @@
 
   <div class="container" id="productContainer"></div>
 
+  <div class="container review-display-section">
+  <div class="review-summary">
+    <h3>商品評價</h3>
+    <div class="average-rating">
+      <span id="avg-score">0.0</span>
+      <div class="avg-stars" id="avg-stars">⭐⭐⭐⭐⭐</div>
+      <p id="total-reviews-count">共 0 則評論</p>
+    </div>
+  </div>
+  
+  <div class="review-list" id="display-review-list">
+    <p style="color:#888; text-align:center; padding: 20px;">暫無評價紀錄</p>
+  </div>
+</div>
+
   <script>
     const products = [
        {
@@ -289,6 +304,54 @@ wishlistBtn.addEventListener("click", () => {
     }
     localStorage.setItem("wishlist", JSON.stringify(currentWishlist));
 });
+</script>
+
+ <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    renderProductReviews();
+});
+
+function renderProductReviews() {
+    const reviewListContainer = document.getElementById('display-review-list');
+    const avgScoreDisplay = document.getElementById('avg-score');
+    const avgStarsDisplay = document.getElementById('avg-stars');
+    const totalCountDisplay = document.getElementById('total-reviews-count');
+
+    // 1. 從 localStorage 取得所有評論 (與 oldorders.html 存儲的 key 一致)
+    let allReviews = JSON.parse(localStorage.getItem('productReviews')) || [];
+    
+    // 2. 篩選出屬於「目前這個商品」的評論 (比對商品名稱)
+    // 注意：product.name 必須在渲染範圍內可用
+    const currentProductReviews = allReviews.filter(rev => rev.productName === product.name);
+
+    if (currentProductReviews.length > 0) {
+        // 3. 計算平均分
+        const totalScore = currentProductReviews.reduce((sum, rev) => sum + rev.star, 0);
+        const avgScore = (totalScore / currentProductReviews.length).toFixed(1);
+        
+        // 4. 更新顯示
+        avgScoreDisplay.textContent = avgScore;
+        totalCountDisplay.textContent = `共 ${currentProductReviews.length} 則評論`;
+        avgStarsDisplay.textContent = '⭐'.repeat(Math.round(avgScore));
+
+        // 5. 渲染評論列表
+        reviewListContainer.innerHTML = currentProductReviews.map(rev => `
+            <div class="individual-review">
+                <div class="review-header">
+                    <span class="user-name">K-Chords 會員</span>
+                    <span class="review-date">${rev.date}</span>
+                </div>
+                <div class="review-stars">${'★'.repeat(rev.star)}${'☆'.repeat(5 - rev.star)}</div>
+                <p class="review-content">${rev.content}</p>
+            </div>
+        `).join('');
+    } else {
+        // 無評論時的預設值
+        avgScoreDisplay.textContent = "0.0";
+        totalCountDisplay.textContent = "暫無評論";
+        avgStarsDisplay.textContent = "☆☆☆☆☆";
+    }
+}
 </script>
   
     <footer class="site-footer">
