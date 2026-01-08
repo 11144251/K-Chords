@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Chords | K-和弦</title>
+  <link rel="stylesheet" href="css/product.css" />
+</head>
+<body>
+  <header>
+    <h1>
+      <a href="index.html">K-Chords | K-和弦</a>
+    </h1>
+<div class="nav-container">
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" class="search-bar" placeholder="搜尋商品、團名、商品類型..." />
+    <div id="searchResults" class="search-results"></div>
+  </div>
+</div>
+    <nav>
+      <ul>
+        <li><a href="cart.html">購物車</a></li>
+        <li><a href="loging.html">會員註冊/登入</a></li>
+        <li><a href="member.html">會員資料</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container" id="productContainer"></div>
+
+  <script>
+    const products = [
+       {
+         id: 1,
+         name: "CORTIS - THE 1ST EP [COLOR OUTSIDE THE LINES]",
+         image: "image/photo1.jpg",
+         price: 530,
+         description: "產品內容：PH VER\n版本：3版（SCENE 1 / SCENE 2 / SCENE 3）\n寫真書：120頁\nSTRING：1種\nFILM SHEET：3種\nCD：1張\n小卡封套：1種\n小卡：5種隨機1張"
+       },
+       {
+          id: 2,
+          name: "RIIZE - 2ND SINGLE [FAME]  單曲二輯",
+          image: "image/photo2.jpg",
+          price: 530,
+          description: "產品內容：PHOTOBOOK VER\n寫真書：96頁（220mm x 297mm）\nCD：1張\nCD封套：1種\n貼紙：1種（120mm x 148mm）\n書籤：6種隨機2\n小卡：6種隨機1（55mm x 85mm）"
+        },
+        {
+          id: 3,
+          name: "YEONJUN(TXT) NO LABELS: PART 01",
+          image: "image/photo3.jpg",
+          price: 550,
+          description: "Outbox：（W145 × H145 × D40mm）\nFigure：（W40 × H102mm）\nPhoto Card (Selfie)：2種（W55 × H85mm）\nPhoto Card (Official Photo)：2種（W55 × H85mm）\nCD tray：（W144 x H144mm）\nCDR：（W120 x H120mm）"
+        },
+        {
+          id: 4,
+          name: "IVE - THE 4TH EP [IVE SECRET]",
+          image: "image/photo4.jpg",
+          price: 520,
+          description: "產品內容：PHOTOBOOK VER\nOUT PACKAGE：180mm x 240mm\n寫真書：80頁（148ｍｍ x 210mm）\nCD：1張\n相片：6種隨機1（88ｍｍ x 107mm）\n小卡：6種隨機1（55ｍｍ x 85mm）"
+        },
+        {
+          id: 5,
+          name: "JENNIE (BLACKPINK) - [RUBY] (LP) 黑膠唱片",
+          image: "image/photo5.jpg",
+          price: 1505,
+          description: "黑膠唱片：1張\n迷你海報：1張（120mm x 120mm）\n明信片：1張\n小卡：1張"
+        },
+        {
+          id: 6,
+          name: "CORTIS - 2026 SEASON'S GREETINGS 年曆組合",
+          image: "image/photo6.jpg",
+          price: 1460,
+          description: "BOX：153mm x 268mm x 85mm\n寫真書：100頁（140mm x 225mm）\n桌曆BOX：1種（150mm x 150mm x 35mm）\n桌曆：14個月（140mm x 140mm）\nCORTIS'S MINI ROOM STICKER BOARD：1種（140mm x 225mm）\n貼紙：5張/1組（100mm x 100mm）\n日程本：32頁（140mm x 200mm）\n五格卡組：5張/1組（65mm x 140mm）\n小卡組：10張/1組（55mm x 85mm）\nINSTANT PHOTO BOX：1種（80mm x 150mm x 35mm）\nINSTANT PHOTO：9張/1組（55mm x 85mm）\nDIGITAL CODE PAPER：1種（50mm x 75mm）\nDIGITAL CODE：1種/約41分鐘（75mm x 25mm x 10mm）\n畫質：[144P]、[270P]、[360P]、[480P]、[720P]、[1080P]\n語言：[韓文]、[英文]、[日語]、[中文]"
+        },
+        {
+          id: 7,
+          name: "NMIXX - 2026 SEASON'S GREETINGS 年曆組合",
+          image: "image/photo7.jpg",
+          price: 1380,
+          description: "OUT BOX：1種（27cm x 20cm x 5cm）\n桌曆：1本（14.8cm x 22cm）\n日程本：1本（13.5cm x 17cm）\n迷你海報：6ea 1set（17.5cm x 25cm）\n小卡：6ea 1set（5.5cm x 8.5cm）\n貼紙：2ea 1set（14cm x 20cm）\nMEMO PAD：1種（9cm x 9cm）\nPVC CLEAR POUCH：1種（11.5cm x 8cm）\nID相片：6ea 1set（3.5cm x 4.5cm）\nPOLAROID：6ea 1set（5.5cm x 8.5cm）\n留言卡：6ea 1set（15cm x 10cm）\nLENTICLAR CARD：6ea 1set（7.5cm x 8cm）"
+        },
+        {
+          id: 8,
+          name: "TXT-2026 SEASON'S GREETINGS 年曆組合",
+          image: "image/photo8.jpg",
+          price: 770,
+          description: "OUT BOX：150mm x 200mm x 45mm\n寫真書：96頁（140mm x 190mm）\nDIGITAL CODE SIZE：約43分鐘（60mm x 49mm）\nMETAL O-RING：（40mm）\nCHARM A：（20mm x 30mm）\nCHARM B：（22mm x 26mm）\nSILVER CHAIN：2種（70mm）\n畫質：[144P]、[270P]、[360P]、[480P]、[720P]、[1080P]\n語言：[韓文]、[英文]、[日語]、[中文]\nPAPER：（90mm x 40mm）\n桌曆：14個月（190mm x 125mm）\n日程本：76頁（60mm x 190mm）\n摺疊海報：1種（280mm x 190mm）\n小卡組：1SET OF 10EA（55mm x 85mm）\n小卡封套：1種（60mm x 90mm）\n貼紙：1種（135mm x 185mm）\n遊戲卡BOX：60mm x 90mm x 12mm\nPAPER：（55mm x 85mm）\n遊戲卡：1SET OF 30EA（55mm x 85mm）\nID相片封套：1種（140mm x 190mm）\nID相片：1SET OF 5EA（130mm x 180mm）\n相片組：1SET OF 5EA（54mm x 86mm）"
+        },
+        {
+          id: 9,
+          name: "IZNA - 2026 SEASON'S GREETINGS 年曆組合",
+          image: "image/photo9.jpg",
+          price: 1540,
+          description: "OUT BOX：（200ｍｍ x 260mm x 50mm）\n桌曆：28頁（170ｍｍ x 230mm）\n手帳日程本：128頁（150ｍｍ x 210mm）\n摺疊海報：1種（480ｍｍ x 370mm）\n迷你海報組：6種/1組（175ｍｍ x 240mm）\n貼紙組：2種/1組（120ｍｍ x 180mm）\n書籤：1種（40ｍｍ x 95mm）\nID相片組：6種/1組（35ｍｍ x 45mm）\nFUR FRAME KEYRING ：6種/1組（55ｍｍ x 70mm）\n明信片組 ：6種/1組（100ｍｍ x 150mm）\n迷你L夾：1種（65ｍｍ x 95mm）\n小卡組 ：6種/1組（55ｍｍ x 85mm）"
+        },
+        {
+          id: 10,
+          name: "KISS OF LIFE - 2026 SEASON'S GREETINGS 年曆組合",
+          image: "image/photo10.jpg",
+          price: 1325,
+          description: "OUT BOX：1EA（210mm x 310mm x 40mm）\n桌曆：28頁（170mm x 230mm）\n寫真書：68頁（195mm x 280mm）\n小卡：8EA 1SET（55mm x 85mm）\nFOLDING MESSAGE CARD：1EA（176mm x 100mm）\nGAME CHARACTER CARD SET：（4mm x 130mm）\nBOOKMARK SET：4EA 1SET（40mm x 60mm）\n貼紙：4EA 1SET（40mm x 50mm）"
+        },
+        {
+          id: 11,
+          name: "NEWJEANS OFFICIAL LIGHT STICK 官方應援手燈",
+          image: "image/photo11.jpg",
+          price: 1820,
+          description: "⭕ 特典小卡：5張 (只限單買手燈 & 手燈+零件組) *售完為止*\n⭕ 手燈外觀以實際到貨為準\n⭕ 手燈到貨會按照先定先出的順序出貨，越早下單越早出貨\n⭕ 手燈一律不提供電池"
+        },
+        {
+          id: 12,
+          name: "LE SSERAFIM OFFICIAL LIGHT STICK 官方應援手燈",
+          image: "image/photo12.jpg",
+          price: 1990,
+          description: "🔻官方並未附贈電池（需AAA電池3顆）\n🔻手燈如有非人為異常則直接更換新品（開箱檢測請全程錄影以維護您的權益）\n🔻國際運送時外盒可能會有些微受損，無法接受者請勿購買\n🔻寄出都會用氣泡紙 紙箱妥善包裝\n🔻國外商品若有突發狀況無法出貨或代購數量不足，將會另行通知並主動為您處理取消訂單之動作\n🔻內容物以實際商品為準"
+        },
+        {
+          id: 13,
+          name: "BTS OFFICIAL LIGHT STICK 第三代官方應援手燈",
+          image: "image/photo13.jpg",
+          price: 2100,
+          description: "※手燈一律不提供電池\n※官方有特別標示特典小卡，因材質問題可能發生細微劃痕皆為正常現象\n※部分外盒可能會有些微受損，或商品會有黑黑的、刮痕、類似髒污的廠損，一律都隨機出貨，能夠接受再下，無法接受者請勿購買！！"
+        },
+        {
+          id: 14,
+          name: "SEVENTEEN OFFICIAL LIGHT STICK 第三代官方應援手燈",
+          image: "image/photo14.jpg",
+          price: 2180,
+          description: "◾️ 手燈跟手燈裝飾是分開販售的\n◾️ 手燈官方有限購，等待時間將會比較長，可以接受再下單\n◾️ 訂單會按照訂單順序出貨，先定先出"
+        },
+        {
+          id: 15,
+          name: "BLACKPINK OFFICIAL LIGHT STICK 第二代官方應援手燈",
+          image: "image/photo15.jpg",
+          price: 1980,
+          description: "※手燈一律不提供電池\n※官方有特別標示特典小卡，因材質問題可能發生細微劃痕皆為正常現象\n※部分外盒可能會有些微受損，或商品會有黑黑的、刮痕、類似髒污的廠損，一律都隨機出貨，能夠接受再下單，無法接受者請勿購買！！"
+        }
+
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get("id"));
+    const product = products.find(p => p.id === productId);
+    const container = document.getElementById("productContainer");
+
+    if (product) {
+      container.innerHTML = `
+        <div class="product-image">
+          <img src="${product.image}" alt="${product.name}" />
+        </div>
+        <div class="product-info">
+          <h1>${product.name}</h1>
+          <p class="price">$${product.price}</p>
+          <p class="description">${product.description.replace(/\n/g, "<br>")}</p>
+
+          <div class="quantity-controller">
+            <button id="decreaseBtn">-</button>
+            <span id="quantityDisplay">1</span>
+            <button id="increaseBtn">+</button>
+          </div>
+
+          <button class="add-to-cart-btn">加入購物車</button>
+          <button id="wishlistBtn" class="wishlist-btn">
+            <span id="wishlistIcon">♡</span> 收藏商品
+          </button>  
+          <a href="allproduct.html?category=全部商品" class="back-btn">← 返回商品總覽</a>
+
+      `;
+      let quantity = 1;
+      const quantityDisplay = document.getElementById("quantityDisplay");
+      document.getElementById("increaseBtn").addEventListener("click", () => {
+        quantity++;
+        quantityDisplay.textContent = quantity;
+      });
+      document.getElementById("decreaseBtn").addEventListener("click", () => {
+        if (quantity > 1) {
+          quantity--;
+          quantityDisplay.textContent = quantity;
+        }
+      });
+
+      document.querySelector(".add-to-cart-btn").addEventListener("click", () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const existing = cart.find(item => item.id === product.id);
+        if (existing) {
+          existing.quantity += quantity;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: quantity
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("已加入購物車！");
+      });
+
+    } else {
+      container.innerHTML = "<p>找不到該商品資料。</p>";
+    }
+  </script>
+
+<script>
+const searchProducts = [
+  { id: 6, name: "CORTIS 2026 年曆", keywords: ["cortis","年曆","官方專輯"] },
+  { id: 7, name: "NMIXX 2026 年曆", keywords: ["nmixx","年曆"] },
+  { id: 8, name: "TXT 2026 年曆", keywords: ["txt","年曆"] },
+  { id: 9, name: "IZNA 2026 年曆", keywords: ["izna","年曆"] },
+  { id: 10, name: "KISS OF LIFE 2026 年曆", keywords: ["kiss","kiof","年曆"] },
+  { id: 14, name: "官方周邊套組", keywords: ["周邊","配件"] }
+];
+
+const input = document.getElementById("searchInput");
+const resultBox = document.getElementById("searchResults");
+
+input.addEventListener("input", function () {
+  const keyword = input.value.toLowerCase().trim();
+  resultBox.innerHTML = "";
+  if (!keyword) {
+    resultBox.style.display = "none";
+    return;
+  }
+
+  const matches = searchProducts.filter(p =>
+    p.name.toLowerCase().includes(keyword) ||
+    p.keywords.some(k => k.includes(keyword))
+  );
+
+  if (matches.length === 0) {
+    resultBox.innerHTML = `<div>找不到相關商品</div>`;
+  } else {
+    matches.forEach(p => {
+      const div = document.createElement("div");
+      div.textContent = p.name;
+      div.onclick = () => {
+        window.location.href = `product.html?id=${p.id}`;
+      };
+      resultBox.appendChild(div);
+    });
+  }
+
+  resultBox.style.display = "block";
+});
+
+document.addEventListener("click", function (e) {
+  if (!e.target.closest(".search-wrapper")) {
+    resultBox.style.display = "none";
+  }
+});
+</script>
+
+<script>
+  // 放在加入購物車的監聽器後面
+const wishlistBtn = document.getElementById("wishlistBtn");
+const wishlistIcon = document.getElementById("wishlistIcon");
+
+// 檢查是否已經收藏
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+const isFavorited = wishlist.some(item => item.id === product.id);
+
+if (isFavorited) {
+    wishlistBtn.classList.add("active");
+    wishlistIcon.textContent = "♥";
+}
+
+wishlistBtn.addEventListener("click", () => {
+    let currentWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const index = currentWishlist.findIndex(item => item.id === product.id);
+
+    if (index > -1) {
+        // 取消收藏
+        currentWishlist.splice(index, 1);
+        wishlistBtn.classList.remove("active");
+        wishlistIcon.textContent = "♡";
+        alert("已從追蹤清單移除");
+    } else {
+        // 加入收藏
+        currentWishlist.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image
+        });
+        wishlistBtn.classList.add("active");
+        wishlistIcon.textContent = "♥";
+        alert("已加入追蹤清單！");
+    }
+    localStorage.setItem("wishlist", JSON.stringify(currentWishlist));
+});
+</script>
+  
+    <footer class="site-footer">
+     <div class="footer-box">
+
+      <div class="footer-col">
+      <h3>K-Chords | K-和弦</h3>
+      <a href="https://www.instagram.com/uyhnz/" target="_blank">IG:K.Chords_official</a>
+        商品問題也可以來這裡詢問
+      <a href="aboutus.html">關於我們</a>
+      </div>
+
+      <div class="footer-col">
+      <h3>SERVICE</h3>
+      <a href="afterservice.html">退換貨服務 After-sales service</a>
+      <a href="qa.html">常見問題 Q&A</a>
+      </div>
+
+      <div class="footer-col">
+      <h3>COMPANY</h3>
+      <a href="contact.html">聯絡我們</a>
+      <a href="cooperate.html">合作洽談</a>
+      <a href="privacy.html">隱私政策</a>
+      <a href="anti-fraud.html">反詐騙公告</a>
+      <p class="footer-time">客服時間 Mon.–Fri. 10:00–18:00 (不含例假日)</p>
+      </div>
+      
+     </div>
+     <div class="footer-bottom">
+        © 2026 K-Chords | K-和弦 All rights reserved.
+     </div>
+   </footer>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Chords | 追蹤清單</title>
+  <link rel="stylesheet" href="css/wishlist.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1><a href="index.html">K-Chords | K-和弦</a></h1>
+      <div class="nav-container">
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" class="search-bar" placeholder="搜尋商品、團名、商品類型..." />
+          <div id="searchResults" class="search-results"></div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="cart.html">購物車</a></li>
+            <li><a href="loging.html">會員註冊/登入</a></li>
+            <li><a href="member.html">會員資料</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <nav class="member-nav">
+    <ul class="member-nav-ul">
+      <li><a href="member.html">個人資訊</a></li>
+      <li><a href="points.html">會員點數</a></li>
+      <li><a href="oldorders.html">訂單</a></li>
+      <li class="active"><a href="wishlist.html">追蹤清單</a></li>
+    </ul>
+  </nav>
+
+  <div class="profile-container">
+    <div class="info-section">
+      <h3><span class="icon">❤️</span> 我的追蹤清單</h3>
+      <p style="color: #888; margin-bottom: 25px;">這裡收藏了您感興趣的精選商品</p>
+
+      <div id="wishlistGrid" class="wishlist-grid">
+        </div>
+
+      <div class="wishlist-actions" style="margin-top: 40px; text-align: center;">
+        <a href="allproduct.html?category=全部商品" class="edit-btn" style="text-decoration: none;">繼續購物</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-box">
+      <div class="footer-col">
+        <h3>K-Chords | K-和弦</h3>
+        <a href="https://www.instagram.com/uyhnz/" target="_blank">IG:K.Chords_official</a>
+        <p>商品問題也可以來這裡詢問</p>
+        <a href="aboutus.html">關於我們</a>
+      </div>
+      <div class="footer-col">
+        <h3>SERVICE</h3>
+        <a href="afterservice.html">退換貨服務 After-sales service</a>
+        <a href="qa.html">常見問題 Q&A</a>
+      </div>
+      <div class="footer-col">
+        <h3>COMPANY</h3>
+        <a href="contact.html">聯絡我們</a>
+        <a href="cooperate.html">合作洽談</a>
+        <a href="privacy.html">隱私政策</a>
+        <a href="anti-fraud.html">反詐騙公告</a>
+        <p class="footer-time">客服時間 Mon.–Fri. 10:00–18:00 (不含例假日)</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 K-Chords | K-和弦 All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    function renderWishlist() {
+      const wishlistGrid = document.getElementById('wishlistGrid');
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+      if (wishlist.length === 0) {
+        wishlistGrid.innerHTML = `
+          <div class="empty-history" style="border: none; padding: 40px 0;">
+            <div class="empty-icon">💔</div>
+            <p>目前清單中沒有商品</p>
+            <p class="sub-text">去尋找心儀的商品吧！</p>
+          </div>`;
+        return;
+      }
+
+      wishlistGrid.innerHTML = wishlist.map(item => `
+        <div class="wishlist-card">
+          <div class="product-img">
+            <img src="${item.image}" alt="${item.name}">
+            <button class="remove-btn" onclick="removeFromWishlist(${item.id})">×</button>
+          </div>
+          <div class="product-info">
+            <h3>${item.name}</h3>
+            <p class="price">$${item.price.toLocaleString()}</p>
+            <div class="card-btns">
+              <a href="product.html?id=${item.id}" class="view-btn">查看詳情</a>
+              <button class="cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image}')">加入購物車</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    window.removeFromWishlist = function(id) {
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      wishlist = wishlist.filter(item => item.id !== id);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      renderWishlist();
+    };
+
+    window.addToCart = function(id, name, price, image) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id, name, price, image, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("已加入購物車！");
+    };
+
+    document.addEventListener('DOMContentLoaded', renderWishlist);
+  </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 從 localStorage 讀取點數 (預設 0)
+        const savedPoints = localStorage.getItem('userPoints') || 0;
+        document.getElementById('user-points').textContent = savedPoints;
+    });
+  </script>
+  <script>
+const products = [
+  { id: 6, name: "CORTIS 2026 年曆", keywords: ["cortis","年曆","官方專輯"] },
+  { id: 7, name: "NMIXX 2026 年曆", keywords: ["nmixx","年曆"] },
+  { id: 8, name: "TXT 2026 年曆", keywords: ["txt","年曆"] },
+  { id: 9, name: "IZNA 2026 年曆", keywords: ["izna","年曆"] },
+  { id: 10, name: "KISS OF LIFE 2026 年曆", keywords: ["kiss","kiof","年曆"] },
+  { id: 14, name: "官方周邊套組", keywords: ["周邊","配件"] }
+];
+
+const input = document.getElementById("searchInput");
+const resultBox = document.getElementById("searchResults");
+
+input.addEventListener("input", function () {
+  const keyword = input.value.toLowerCase().trim();
+  resultBox.innerHTML = "";
+  if (!keyword) {
+    resultBox.style.display = "none";
+    return;
+  }
+
+  const matches = products.filter(p =>
+    p.name.toLowerCase().includes(keyword) ||
+    p.keywords.some(k => k.includes(keyword))
+  );
+
+  if (matches.length === 0) {
+    resultBox.innerHTML = `<div>找不到相關商品</div>`;
+  } else {
+    matches.forEach(p => {
+      const div = document.createElement("div");
+      div.textContent = p.name;
+      div.onclick = () => {
+        window.location.href = `product.html?id=${p.id}`;
+      };
+      resultBox.appendChild(div);
+    });
+  }
+
+  resultBox.style.display = "block";
+});
+
+document.addEventListener("click", function (e) {
+  if (!e.target.closest(".search-wrapper")) {
+    resultBox.style.display = "none";
+  }
+});
+</script>
+</body>
+</html>

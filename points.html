@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K-Chords | 會員點數</title>
+  <link rel="stylesheet" href="css/points.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1><a href="index.html">K-Chords | K-和弦</a></h1>
+      <div class="nav-container">
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" class="search-bar" placeholder="搜尋商品、團名、商品類型..." />
+          <div id="searchResults" class="search-results"></div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="cart.html">購物車</a></li>
+            <li><a href="loging.html">會員註冊/登入</a></li>
+            <li><a href="member.html">會員資料</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <nav class="member-nav">
+    <ul class="member-nav-ul">
+      <li><a href="member.html">個人資訊</a></li>
+      <li class="active"><a href="points.html">會員點數</a></li>
+      <li><a href="oldorders.html">訂單</a></li>
+      <li><a href="wishlist.html">追蹤清單</a></li>
+    </ul>
+  </nav>
+
+  <div class="profile-container">
+    <div class="info-section">
+      <h3><span class="icon">💰</span> 點數紀錄</h3>
+      
+      <div class="points-overview-card">
+        <div class="points-main">
+          <div class="points-icon-large">📢</div>
+          <div class="points-data">
+            <p class="label">現有總點數</p>
+            <p class="points-number"><span id="user-points">0</span> 點</p>
+            <p class="points-value">等值 NT$0</p>
+          </div>
+        </div>
+        <div class="points-rule">
+          <p>✨ 2 點可折抵 NT$1</p>
+        </div>
+      </div>
+
+      <div class="empty-history">
+        <div class="empty-icon">🛍️</div>
+        <p>目前沒有任何點數紀錄</p>
+        <p class="sub-text">結帳累積點數獲得更多優惠！</p>
+        <a href="index.html" class="edit-btn" style="text-decoration: none;">馬上逛逛</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-box">
+      <div class="footer-col">
+        <h3>K-Chords | K-和弦</h3>
+        <a href="https://www.instagram.com/uyhnz/" target="_blank">IG:K.Chords_official</a>
+        <p>商品問題也可以來這裡詢問</p>
+        <a href="aboutus.html">關於我們</a>
+      </div>
+      <div class="footer-col">
+        <h3>SERVICE</h3>
+        <a href="afterservice.html">退換貨服務 After-sales service</a>
+        <a href="qa.html">常見問題 Q&A</a>
+      </div>
+      <div class="footer-col">
+        <h3>COMPANY</h3>
+        <a href="contact.html">聯絡我們</a>
+        <a href="cooperate.html">合作洽談</a>
+        <a href="privacy.html">隱私政策</a>
+        <a href="anti-fraud.html">反詐騙公告</a>
+        <p class="footer-time">客服時間 Mon.–Fri. 10:00–18:00 (不含例假日)</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 K-Chords | K-和弦 All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 從 localStorage 讀取點數 (預設 0)
+        const savedPoints = localStorage.getItem('userPoints') || 0;
+        document.getElementById('user-points').textContent = savedPoints;
+    });
+  </script>
+  <script>
+const products = [
+  { id: 6, name: "CORTIS 2026 年曆", keywords: ["cortis","年曆","官方專輯"] },
+  { id: 7, name: "NMIXX 2026 年曆", keywords: ["nmixx","年曆"] },
+  { id: 8, name: "TXT 2026 年曆", keywords: ["txt","年曆"] },
+  { id: 9, name: "IZNA 2026 年曆", keywords: ["izna","年曆"] },
+  { id: 10, name: "KISS OF LIFE 2026 年曆", keywords: ["kiss","kiof","年曆"] },
+  { id: 14, name: "官方周邊套組", keywords: ["周邊","配件"] }
+];
+
+const input = document.getElementById("searchInput");
+const resultBox = document.getElementById("searchResults");
+
+input.addEventListener("input", function () {
+  const keyword = input.value.toLowerCase().trim();
+  resultBox.innerHTML = "";
+  if (!keyword) {
+    resultBox.style.display = "none";
+    return;
+  }
+
+  const matches = products.filter(p =>
+    p.name.toLowerCase().includes(keyword) ||
+    p.keywords.some(k => k.includes(keyword))
+  );
+
+  if (matches.length === 0) {
+    resultBox.innerHTML = `<div>找不到相關商品</div>`;
+  } else {
+    matches.forEach(p => {
+      const div = document.createElement("div");
+      div.textContent = p.name;
+      div.onclick = () => {
+        window.location.href = `product.html?id=${p.id}`;
+      };
+      resultBox.appendChild(div);
+    });
+  }
+
+  resultBox.style.display = "block";
+});
+
+document.addEventListener("click", function (e) {
+  if (!e.target.closest(".search-wrapper")) {
+    resultBox.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
